@@ -4,184 +4,332 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>CreatorKit — Shorts Content Generator</title>
+<meta name="theme-color" content="#090d18">
+<title>CreatorKit — वीडियो कंटेंट जनरेटर</title>
+
 <style>
-:root{color-scheme:dark;--bg:#090d18;--panel:#121a2b;--line:#293650;--text:#f4f6ff;--muted:#a8b3ca;--accent:#9b87ff;--green:#68e0b0}
-*{box-sizing:border-box}
-body{margin:0;background:radial-gradient(ellipse at top,#20234a 0,#090d18 58%);font-family:system-ui,-apple-system,sans-serif;color:var(--text);min-height:100vh;padding:24px 14px}
-main{max-width:760px;margin:auto}
-header{text-align:center;padding:20px 0 25px}
-.logo{display:inline-block;border:1px solid #514a85;background:#211e43;color:#c9c0ff;padding:7px 13px;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:1px}
-h1{font-size:clamp(32px,8vw,48px);margin:14px 0 8px;letter-spacing:-1.5px}
-h1 span{color:var(--accent)}
-header p,.muted{color:var(--muted);line-height:1.6}
-.panel{background:#121a2beF;border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:0 15px 45px #0002}
-label{display:block;font-size:14px;font-weight:700;margin:0 0 9px}
-textarea,select{width:100%;background:#0b1120;color:var(--text);border:1px solid #34415c;border-radius:12px;padding:13px;font:inherit;outline:none}
-textarea:focus,select:focus{border-color:var(--accent)}
-textarea{min-height:100px;resize:vertical}
-.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:17px}
-button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 15px;font-weight:750}
-.primary{width:100%;margin-top:18px;background:linear-gradient(100deg,#a994ff,#7e91ff);color:#101126;padding:15px}
-.secondary{background:#222d43;border:1px solid #35445f;color:#edf0ff;font-size:13px}
-.result{margin-top:16px;border-top:1px solid var(--line);padding-top:16px}
-.result:first-of-type{border-top:0}
-.result-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-.result-head h3{margin:0;font-size:16px}
-.output{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7;color:#e5eaf8;font-size:14px}
-.note{font-size:12px;color:var(--muted);line-height:1.6}
-footer{text-align:center;color:var(--muted);font-size:12px;padding:22px}
-@media(max-width:520px){.fields{grid-template-columns:1fr}.panel{padding:16px}}
+:root {
+  color-scheme: dark;
+  --bg: #090d18;
+  --panel: #121a2b;
+  --line: #293650;
+  --text: #f4f6ff;
+  --muted: #a8b3ca;
+  --accent: #a994ff;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 24px 14px;
+  min-height: 100vh;
+  background: radial-gradient(ellipse at top, #20234a 0, var(--bg) 60%);
+  font-family: system-ui, -apple-system, sans-serif;
+  color: var(--text);
+}
+main { max-width: 760px; margin: auto; }
+header { text-align: center; padding: 20px 0 25px; }
+.logo {
+  display: inline-block;
+  padding: 7px 13px;
+  border: 1px solid #514a85;
+  border-radius: 99px;
+  background: #211e43;
+  color: #c9c0ff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+h1 { font-size: clamp(32px, 8vw, 48px); margin: 14px 0 8px; }
+h1 span { color: var(--accent); }
+header p, .muted, .note { color: var(--muted); line-height: 1.7; }
+.panel {
+  margin: 14px 0;
+  padding: 20px;
+  background: #121a2bef;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  box-shadow: 0 15px 45px #0002;
+}
+label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 9px; }
+textarea, select {
+  width: 100%;
+  padding: 13px;
+  background: #0b1120;
+  color: var(--text);
+  border: 1px solid #34415c;
+  border-radius: 12px;
+  font: inherit;
+}
+textarea { min-height: 100px; resize: vertical; }
+textarea:focus, select:focus { outline: 2px solid var(--accent); }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 17px; }
+button {
+  padding: 12px 15px;
+  border: 0;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 750;
+  cursor: pointer;
+}
+.primary {
+  width: 100%;
+  margin-top: 18px;
+  padding: 15px;
+  background: linear-gradient(100deg, #a994ff, #7e91ff);
+  color: #101126;
+}
+.secondary { background: #222d43; border: 1px solid #35445f; color: #edf0ff; font-size: 13px; }
+.result { margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--line); }
+.result-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.result-head h3 { margin: 0; font-size: 16px; }
+.output { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; font-size: 14px; color: #e5eaf8; }
+.note { font-size: 12px; }
+footer { text-align: center; color: var(--muted); font-size: 12px; padding: 22px; }
+[hidden] { display: none !important; }
+@media(max-width: 520px) {
+  .fields { grid-template-columns: 1fr; }
+  .panel { padding: 16px; }
+}
 </style>
 </head>
+
 <body>
 <main>
-<header>
-<div class="logo">CREATOR TOOLS</div>
-<h1>Creator<span>Kit</span></h1>
-<p>अपने वीडियो के लिए टाइटल, डिस्क्रिप्शन और हैशटैग तैयार करें।</p>
-</header>
+  <header>
+    <div class="logo">CREATOR TOOLS</div>
+    <h1>Creator<span>Kit</span></h1>
+    <p>अपने वीडियो के लिए बेहतर शीर्षक, विवरण और हैशटैग तैयार करें।</p>
+  </header>
 
-<section class="panel">
-<label for="topic">वीडियो किस विषय पर है?</label>
-<textarea id="topic" placeholder="जैसे: समुद्र की 5 रहस्यमयी बातें"></textarea>
-<div class="fields">
-<div>
-<label for="platform">प्लेटफ़ॉर्म</label>
-<select id="platform">
-<option>YouTube Shorts</option>
-<option>YouTube Video</option>
-<option>Instagram Reels</option>
-<option>Facebook Reels</option>
-</select>
-</div>
-<div>
-<label for="style">शीर्षक की शैली</label>
-<select id="style">
-<option value="curiosity">Curiosity — जिज्ञासा</option>
-<option value="educational">Educational — जानकारीपूर्ण</option>
-<option value="dramatic">Dramatic — नाटकीय</option>
-<option value="simple">Simple — सरल</option>
-</select>
-</div>
-</div>
-<button class="primary" id="generate">मेरा कंटेंट तैयार करें ✨</button>
-<p class="note">यह संस्करण बिना किसी बाहरी सेवा के चलता है। सुझाव टेम्पलेट से बनते हैं, वास्तविक एआई से नहीं। प्रकाशित करने से पहले परिणाम जाँच लें।</p>
-</section>
+  <section class="panel">
+    <label for="topic">वीडियो किस विषय पर है?</label>
+    <textarea id="topic" placeholder="जैसे: समुद्र की 5 रहस्यमयी बातें"></textarea>
 
-<section class="panel" id="results" hidden>
-<div class="result">
-<div class="result-head"><h3>🎯 टाइटल के सुझाव</h3><button class="secondary" data-copy="titles">कॉपी</button></div>
-<div class="output" id="titles"></div>
-</div>
-<div class="result">
-<div class="result-head"><h3>📝 डिस्क्रिप्शन</h3><button class="secondary" data-copy="description">कॉपी</button></div>
-<div class="output" id="description"></div>
-</div>
-<div class="result">
-<div class="result-head"><h3># हैशटैग</h3><button class="secondary" data-copy="hashtags">कॉपी</button></div>
-<div class="output" id="hashtags"></div>
-</div>
-</section>
-<footer>CreatorKit · बनाया गया कंटेंट इस्तेमाल करने से पहले उसकी सटीकता जाँचें।</footer>
+    <div class="fields">
+      <div>
+        <label for="platform">प्लेटफ़ॉर्म</label>
+        <select id="platform">
+          <option value="YouTube Shorts">YouTube Shorts</option>
+          <option value="YouTube Video">YouTube Video</option>
+          <option value="Instagram Reels">Instagram Reels</option>
+          <option value="Facebook Reels">Facebook Reels</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="style">शीर्षक की शैली</label>
+        <select id="style">
+          <option value="curiosity">Curiosity — जिज्ञासा</option>
+          <option value="educational">Educational — जानकारीपूर्ण</option>
+          <option value="dramatic">Dramatic — नाटकीय</option>
+          <option value="simple">Simple — सरल</option>
+        </select>
+      </div>
+    </div>
+
+    <button class="primary" id="generate">मेरा कंटेंट तैयार करें ✨</button>
+    <p class="note">यह टूल तय नियमों से सुझाव बनाता है, वास्तविक AI से नहीं। प्रकाशित करने से पहले शीर्षक और विवरण अपने वीडियो से मिलाएँ।</p>
+  </section>
+
+  <section class="panel" id="results" hidden>
+    <div class="result">
+      <div class="result-head">
+        <h3>🎯 शीर्षक के सुझाव</h3>
+        <button class="secondary" data-copy="titles">कॉपी</button>
+      </div>
+      <div class="output" id="titles"></div>
+    </div>
+
+    <div class="result">
+      <div class="result-head">
+        <h3>📝 विवरण</h3>
+        <button class="secondary" data-copy="description">कॉपी</button>
+      </div>
+      <div class="output" id="description"></div>
+    </div>
+
+    <div class="result">
+      <div class="result-head">
+        <h3># हैशटैग</h3>
+        <button class="secondary" data-copy="hashtags">कॉपी</button>
+      </div>
+      <div class="output" id="hashtags"></div>
+    </div>
+  </section>
+
+  <footer>CreatorKit · उपयोग करने से पहले सामग्री की सटीकता जाँचें।</footer>
 </main>
+
 <script>
-const $=id=>document.getElementById(id);
-const hasHindi=s=>/[\u0900-\u097F]/u.test(s);
-function wordsOf(s){
- return (s.toLocaleLowerCase("hi").match(/[\p{L}\p{M}\p{N}]+/gu)||[]);
+const $ = id => document.getElementById(id);
+
+const hasHindi = text => /[\u0900-\u097F]/u.test(text);
+
+function wordsOf(text) {
+  return text.toLocaleLowerCase("hi")
+    .match(/[\p{L}\p{M}\p{N}]+/gu) || [];
 }
-function makeHashtags(topic,platform){
- const stop=new Set(["the","and","for","with","about","this","that","from","your","you","are","hai","he","ka","ki","ke","mein","par","aur","ek","kya","how","why","top","best"]);
- const words=wordsOf(topic).filter(w=>!stop.has(w)&&w.length>1);
- const clean=[];
- if(words.length){
-   clean.push("#"+words.join(""));
-   words.slice(0,3).forEach(w=>clean.push("#"+w));
- }
- clean.push(platform==="YouTube Shorts"?"#Shorts":platform.includes("Reels")?"#Reels":"#YouTube");
- return [...new Set(clean)].slice(0,6).join(" ");
-}
-function makeTitles(topic,style){
- const hi=hasHindi(topic);
- const sets={
- curiosity:hi?[
- `${topic} के पीछे छिपे रहस्य!`,
- `${topic} के बारे में ये बातें जानते हैं?`,
- `${topic}: ऐसी बातें जो हैरान कर दें`,
- `आखिर ${topic} इतना दिलचस्प क्यों है?`
- ]:[
- `The Mystery Behind ${topic}`,
- `What Makes ${topic} So Surprising?`,
- `Things You May Not Know About ${topic}`,
- `The Most Interesting Part of ${topic}`
- ],
- educational:hi?[
- `${topic} को आसान भाषा में समझें`,
- `${topic} के 3 रोचक तथ्य`,
- `${topic} के बारे में ज़रूरी जानकारी`,
- `${topic}: आसान जानकारी`
- ]:[
- `${topic}, Explained Simply`,
- `3 Interesting Facts About ${topic}`,
- `What to Know About ${topic}`,
- `${topic}: A Quick Guide`
- ],
- dramatic:hi?[
- `${topic} की अनसुनी कहानी`,
- `${topic} का चौंकाने वाला सच`,
- `${topic} की सबसे हैरान करने वाली बात`,
- `${topic}: पर्दे के पीछे की कहानी`
- ]:[
- `The Untold Story of ${topic}`,
- `The Surprising Truth About ${topic}`,
- `The Most Unexpected Thing About ${topic}`,
- `What Lies Behind ${topic}`
- ],
- simple:hi?[
- `${topic} — आसान जानकारी`,
- `आइए जानें ${topic} के बारे में`,
- `${topic} की मुख्य बातें`,
- `${topic}: एक छोटा परिचय`
- ]:[
- `${topic} — Quick Guide`,
- `Let's Explore ${topic}`,
- `Key Things About ${topic}`,
- `${topic}: A Short Introduction`
- ]
- };
- return sets[style].map((t,i)=>`${i+1}. ${t}`).join("\n");
-}
-function makeDescription(topic,platform){
- if(hasHindi(topic)){
-  return `इस ${platform} वीडियो में हम ${topic} के बारे में जानेंगे।\n\nवीडियो में दी गई जानकारी में से आपको कौन-सी बात सबसे दिलचस्प लगी? कमेंट में बताइए।\n\nऐसे और वीडियो के लिए फ़ॉलो करें।\n\nनोट: इस विवरण को अपने वीडियो की वास्तविक सामग्री के अनुसार जाँचें।`;
- }
- return `In this ${platform} video, we explore ${topic}.\n\nTell us which part you found most interesting in the comments.\n\nFollow for more videos.\n\nNote: Check that this description accurately matches your video's actual content.`;
-}
-$("generate").addEventListener("click",()=>{
- const topic=$("topic").value.trim();
- if(!topic){$("topic").focus();alert("पहले वीडियो का विषय लिखें।");return}
- const platform=$("platform").value,style=$("style").value;
- $("titles").textContent=makeTitles(topic,style);
- $("description").textContent=makeDescription(topic,platform);
- $("hashtags").textContent=makeHashtags(topic,platform);
- $("results").hidden=false;
- $("results").scrollIntoView({behavior:"smooth",block:"start"});
-});
-document.querySelectorAll("[data-copy]").forEach(button=>{
- button.addEventListener("click",async()=>{
-  const text=$(button.dataset.copy).textContent;
-  try{
-   await navigator.clipboard.writeText(text);
-   button.textContent="कॉपी हो गया ✓";
-  }catch(e){
-   const area=document.createElement("textarea");
-   area.value=text;document.body.appendChild(area);area.select();
-   const ok=document.execCommand("copy");area.remove();
-   button.textContent=ok?"कॉपी हो गया ✓":"टेक्स्ट चुनकर कॉपी करें";
+
+function makeHashtags(topic, platform) {
+  const stop = new Set([
+    "the", "and", "for", "with", "about", "this", "that",
+    "from", "your", "you", "are", "hai", "he", "ka", "ki",
+    "ke", "mein", "par", "aur", "ek", "kya", "how", "why",
+    "top", "best", "का", "की", "के", "में", "पर", "और",
+    "एक", "है", "हैं", "से", "को", "क्या", "क्यों", "कैसे",
+    "यह", "ये", "वो", "भी", "तक", "लिए", "बारे"
+  ]);
+
+  const allWords = wordsOf(topic);
+  const meaningful = allWords.filter(
+    word => !stop.has(word) && !/^\d+$/u.test(word) && word.length > 1
+  );
+
+  const tags = [];
+
+  // मूल विषय का संयुक्त हैशटैग, जिसमें हिंदी के शब्द सुरक्षित रहते हैं।
+  if (allWords.length) {
+    tags.push("#" + allWords.join(""));
   }
-  setTimeout(()=>button.textContent="कॉपी",1600);
- });
+
+  // सामान्य शब्दों के बजाय विषय से जुड़े उपयोगी शब्द।
+  meaningful.forEach(word => tags.push("#" + word));
+
+  if (platform === "YouTube Shorts") {
+    tags.push("#Shorts");
+  } else if (platform.includes("Reels")) {
+    tags.push("#Reels");
+  } else {
+    tags.push("#YouTube");
+  }
+
+  return [...new Set(tags)].slice(0, 6).join(" ");
+}
+
+function makeTitles(topic, style) {
+  const hi = hasHindi(topic);
+
+  const sets = {
+    curiosity: hi ? [
+      `क्या आप जानते हैं? ${topic}`,
+      `${topic} से जुड़े 5 रोचक तथ्य`,
+      `${topic} की ऐसी बातें जो आपको हैरान कर दें`,
+      `आखिर ${topic} इतना दिलचस्प क्यों है?`
+    ] : [
+      `Did You Know? ${topic}`,
+      `5 Interesting Facts About ${topic}`,
+      `Surprising Things About ${topic}`,
+      `Why Is ${topic} So Interesting?`
+    ],
+
+    educational: hi ? [
+      `${topic} — आसान भाषा में`,
+      `${topic} के मुख्य तथ्य`,
+      `${topic} के बारे में ज़रूरी जानकारी`,
+      `${topic}: सरल और रोचक जानकारी`
+    ] : [
+      `${topic}, Explained Simply`,
+      `Key Facts About ${topic}`,
+      `What to Know About ${topic}`,
+      `${topic}: A Simple Guide`
+    ],
+
+    dramatic: hi ? [
+      `${topic} के हैरान कर देने वाले रहस्य`,
+      `${topic} की अनसुनी बातें`,
+      `${topic} का अनोखा पहलू`,
+      `${topic}: एक रहस्यमयी दुनिया`
+    ] : [
+      `The Untold Story of ${topic}`,
+      `Surprising Facts About ${topic}`,
+      `The Unexpected Side of ${topic}`,
+      `The Mystery of ${topic}`
+    ],
+
+    simple: hi ? [
+      `${topic}`,
+      `${topic} — एक आसान परिचय`,
+      `आइए जानें: ${topic}`,
+      `${topic} की मुख्य बातें`
+    ] : [
+      `${topic}`,
+      `${topic} — A Simple Introduction`,
+      `Let's Explore ${topic}`,
+      `Key Facts About ${topic}`
+    ]
+  };
+
+  return [...new Set(sets[style] || sets.curiosity)]
+    .map((title, index) => `${index + 1}. ${title}`)
+    .join("\n");
+}
+
+function makeDescription(topic, platform) {
+  if (hasHindi(topic)) {
+    return `आज के वीडियो का विषय है: ${topic}। 🌊
+
+इस विषय से जुड़ी रोचक जानकारी जानिए और वीडियो को अंत तक देखें।
+
+आपको कौन-सी बात सबसे दिलचस्प लगी? कमेंट में बताइए।
+
+ऐसे और वीडियो देखने के लिए चैनल को फ़ॉलो करें।`;
+  }
+
+  return `Today's video is about: ${topic}.
+
+Explore interesting information about this topic and watch until the end.
+
+Which part did you find most interesting? Tell us in the comments.
+
+Follow for more videos.`;
+}
+
+$("generate").addEventListener("click", () => {
+  const topic = $("topic").value.trim();
+
+  if (!topic) {
+    $("topic").focus();
+    alert("पहले वीडियो का विषय लिखें।");
+    return;
+  }
+
+  const platform = $("platform").value;
+  const style = $("style").value;
+
+  $("titles").textContent = makeTitles(topic, style);
+  $("description").textContent = makeDescription(topic, platform);
+  $("hashtags").textContent = makeHashtags(topic, platform);
+
+  $("results").hidden = false;
+  $("results").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+document.querySelectorAll("[data-copy]").forEach(button => {
+  button.addEventListener("click", async () => {
+    const text = $(button.dataset.copy).textContent;
+    const original = button.textContent;
+
+    try {
+      await navigator.clipboard.writeText(text);
+      button.textContent = "कॉपी हो गया ✓";
+    } catch (error) {
+      const area = document.createElement("textarea");
+      area.value = text;
+      document.body.appendChild(area);
+      area.select();
+
+      const success = document.execCommand("copy");
+      area.remove();
+
+      button.textContent = success
+        ? "कॉपी हो गया ✓"
+        : "टेक्स्ट चुनकर कॉपी करें";
+    }
+
+    setTimeout(() => {
+      button.textContent = original;
+    }, 1600);
+  });
 });
 </script>
 </body>

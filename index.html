@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0d14"><title>CreatorKit — Creator Tools</title>
+<style>
+:root{--bg:#0b0d14;--panel:#151927;--border:#2b3043;--text:#f4f5ff;--muted:#9ca6bf;--purple:#a78bfa;--cyan:#67e8f9}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#252044,var(--bg) 55%);color:var(--text);font-family:system-ui,Arial,sans-serif;min-height:100vh}
+.wrap{max-width:760px;margin:auto;padding:22px 16px 45px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:42px;gap:10px}
+.logo{font-size:22px;font-weight:850;letter-spacing:-1px}.logo span{color:var(--purple)}.pill{color:var(--cyan);border:1px solid var(--border);border-radius:30px;padding:7px 10px;font-size:11px}
+.hero{text-align:center;margin-bottom:28px}.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:2px}
+h1{font-size:clamp(36px,9vw,58px);line-height:1.08;letter-spacing:-2px;margin:15px 0}h1 span{background:linear-gradient(90deg,var(--purple),var(--cyan));color:transparent;background-clip:text}
+.sub{color:var(--muted);line-height:1.7;font-size:14px;max-width:470px;margin:auto}.panel{background:var(--panel);border:1px solid var(--border);border-radius:19px;padding:19px;margin-top:18px}
+label{display:block;font-size:13px;font-weight:700;margin-bottom:9px}textarea,select{width:100%;padding:13px;border-radius:11px;border:1px solid var(--border);background:#0d101a;color:var(--text);font:inherit;outline:none}
+textarea{min-height:105px;resize:vertical}textarea:focus,select:focus{border-color:var(--purple)}.field{margin-bottom:17px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+button{font:inherit;font-weight:750;cursor:pointer;border:0;border-radius:11px;padding:12px 15px}.primary{width:100%;color:#101020;background:linear-gradient(90deg,var(--purple),var(--cyan))}
+.secondary,.copy{color:var(--text);background:#252a3d}.hint{color:var(--muted);font-size:12px;line-height:1.6;margin:11px 0 0}#results{display:none}
+.result-head,.result-top{display:flex;align-items:center;justify-content:space-between;gap:10px}h2{font-size:20px;margin:0}
+.result-card{background:#0d101a;border:1px solid var(--border);border-radius:13px;padding:14px;margin-top:13px}.result-top{margin-bottom:10px}
+.result-top strong{font-size:12px;letter-spacing:.4px}.copy{font-size:12px;padding:8px 11px}.output{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;color:#dce1f3;line-height:1.75}
+footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;line-height:1.8}@media(max-width:430px){.grid{grid-template-columns:1fr;gap:0}.panel{padding:15px}header{margin-bottom:32px}}
+</style></head><body><main class="wrap">
+<header><div class="logo">Creator<span>Kit.</span></div><div class="pill">✦ FREE CREATOR TOOLS</div></header>
+<section class="hero"><div class="eyebrow">YOUR NEXT VIDEO STARTS HERE</div><h1>Create content.<br><span>Grow smarter.</span></h1><p class="sub">Turn one video topic into title ideas, a description and hashtags. Simple tools for creators.</p></section>
+<section class="panel"><form id="creatorForm">
+<div class="field"><label for="topic">What's your video about?</label><textarea id="topic" maxlength="300" placeholder="Example: Amazing facts about space..." required></textarea></div>
+<div class="grid"><div class="field"><label for="platform">Platform</label><select id="platform"><option>YouTube Shorts</option><option>YouTube</option><option>Instagram Reels</option><option>Facebook Reels</option></select></div>
+<div class="field"><label for="style">Content style</label><select id="style"><option value="curiosity">Curiosity</option><option value="educational">Educational</option><option value="dramatic">Dramatic</option><option value="simple">Simple &amp; clear</option></select></div></div>
+<button class="primary" type="submit">✦ Generate my content kit</button><p class="hint">Free to use · No account required · Works in your browser</p>
+</form></section>
+<section class="panel" id="results" aria-live="polite"><div class="result-head"><h2>Your content kit</h2><button type="button" class="secondary" id="again">↻ Try again</button></div>
+<div class="result-card"><div class="result-top"><strong>VIDEO TITLE IDEAS</strong><button class="copy" data-target="titles">Copy</button></div><div class="output" id="titles"></div></div>
+<div class="result-card"><div class="result-top"><strong>VIDEO DESCRIPTION</strong><button class="copy" data-target="description">Copy</button></div><div class="output" id="description"></div></div>
+<div class="result-card"><div class="result-top"><strong>HASHTAGS</strong><button class="copy" data-target="hashtags">Copy</button></div><div class="output" id="hashtags"></div></div><p class="hint" id="notice"></p></section>
+<footer>CreatorKit · Built for creators<br>Suggestions are template-based, not AI-generated.</footer>
+</main><script>
+const $=id=>document.getElementById(id);
+function cleanTopic(value){return value.trim().replace(/\s+/g," ").replace(/[.!?]+$/,"")}
+function makeHashtags(topic,platform){
+ const words=topic.toLowerCase().match(/[\p{L}\p{N}]+/gu)||[];
+ const stop=new Set(["the","and","for","with","about","this","that","from","your","you","are","hai","he","ka","ki","ke","mein","par","aur","ek","kya","how","why"]);
+ const tags=[...new Set(words.filter(w=>!stop.has(w)&&w.length>2))].slice(0,5).map(w=>"#"+w);
+ const common=platform.includes("YouTube")?["#shorts","#youtube"]:platform.includes("Instagram")?["#reels","#instagram"]:["#reels","#creator"];
+ return [...new Set([...tags,...common,"#contentcreator"])].join(" ");
+}
+function generate(){
+ const topic=cleanTopic($("topic").value);if(!topic){$("topic").focus();return}
+ const platform=$("platform").value,style=$("style").value;
+ const templates={
+ curiosity:[`You Won't Believe This About ${topic}`,`What Nobody Tells You About ${topic}`,`Did You Know This About ${topic}?`,`${topic}: The Surprising Truth`],
+ educational:[`${topic} Explained Simply`,`Learn About ${topic} in 60 Seconds`,`3 Things to Understand About ${topic}`,`A Beginner's Guide to ${topic}`],
+ dramatic:[`The Untold Story of ${topic}`,`This Changes How You See ${topic}`,`The Truth Behind ${topic}`,`${topic} Is More Interesting Than You Think`],
+ simple:[`${topic} — Quick Guide`,`Let's Talk About ${topic}`,`${topic}: What You Need to Know`,`A Simple Explanation of ${topic}`]
+ };
+ $("titles").textContent=templates[style].map((t,i)=>`${i+1}. ${t}`).join("\n");
+ $("description").textContent=`In this ${platform} video, we explore ${topic}.\n\nWatch until the end and share your thoughts in the comments!\n\nIf you found this useful, follow for more content.\n\nEdit this description so it accurately matches your video.`;
+ $("hashtags").textContent=makeHashtags(topic,platform);
+ $("notice").textContent="These are starter templates, not AI-generated recommendations. Customize them before publishing.";
+ $("results").style.display="block";$("results").scrollIntoView({behavior:"smooth",block:"start"});
+}
+$("creatorForm").addEventListener("submit",e=>{e.preventDefault();generate()});$("again").addEventListener("click",generate);
+document.querySelectorAll("[data-target]").forEach(button=>{button.addEventListener("click",async()=>{
+ const text=$(button.dataset.target).textContent;
+ try{await navigator.clipboard.writeText(text);button.textContent="Copied ✓"}
+ catch(e){const area=document.createElement("textarea");area.value=text;document.body.appendChild(area);area.select();document.execCommand("copy");area.remove();button.textContent="Copied ✓"}
+ setTimeout(()=>button.textContent="Copy",1400);
+})});
+</script></body></html>

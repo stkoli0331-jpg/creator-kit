@@ -1,68 +1,188 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b0d14"><title>CreatorKit — Creator Tools</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CreatorKit — Shorts Content Generator</title>
 <style>
-:root{--bg:#0b0d14;--panel:#151927;--border:#2b3043;--text:#f4f5ff;--muted:#9ca6bf;--purple:#a78bfa;--cyan:#67e8f9}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#252044,var(--bg) 55%);color:var(--text);font-family:system-ui,Arial,sans-serif;min-height:100vh}
-.wrap{max-width:760px;margin:auto;padding:22px 16px 45px}header{display:flex;justify-content:space-between;align-items:center;margin-bottom:42px;gap:10px}
-.logo{font-size:22px;font-weight:850;letter-spacing:-1px}.logo span{color:var(--purple)}.pill{color:var(--cyan);border:1px solid var(--border);border-radius:30px;padding:7px 10px;font-size:11px}
-.hero{text-align:center;margin-bottom:28px}.eyebrow{color:var(--cyan);font-size:11px;font-weight:800;letter-spacing:2px}
-h1{font-size:clamp(36px,9vw,58px);line-height:1.08;letter-spacing:-2px;margin:15px 0}h1 span{background:linear-gradient(90deg,var(--purple),var(--cyan));color:transparent;background-clip:text}
-.sub{color:var(--muted);line-height:1.7;font-size:14px;max-width:470px;margin:auto}.panel{background:var(--panel);border:1px solid var(--border);border-radius:19px;padding:19px;margin-top:18px}
-label{display:block;font-size:13px;font-weight:700;margin-bottom:9px}textarea,select{width:100%;padding:13px;border-radius:11px;border:1px solid var(--border);background:#0d101a;color:var(--text);font:inherit;outline:none}
-textarea{min-height:105px;resize:vertical}textarea:focus,select:focus{border-color:var(--purple)}.field{margin-bottom:17px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-button{font:inherit;font-weight:750;cursor:pointer;border:0;border-radius:11px;padding:12px 15px}.primary{width:100%;color:#101020;background:linear-gradient(90deg,var(--purple),var(--cyan))}
-.secondary,.copy{color:var(--text);background:#252a3d}.hint{color:var(--muted);font-size:12px;line-height:1.6;margin:11px 0 0}#results{display:none}
-.result-head,.result-top{display:flex;align-items:center;justify-content:space-between;gap:10px}h2{font-size:20px;margin:0}
-.result-card{background:#0d101a;border:1px solid var(--border);border-radius:13px;padding:14px;margin-top:13px}.result-top{margin-bottom:10px}
-.result-top strong{font-size:12px;letter-spacing:.4px}.copy{font-size:12px;padding:8px 11px}.output{white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;color:#dce1f3;line-height:1.75}
-footer{text-align:center;color:var(--muted);font-size:12px;margin-top:30px;line-height:1.8}@media(max-width:430px){.grid{grid-template-columns:1fr;gap:0}.panel{padding:15px}header{margin-bottom:32px}}
-</style></head><body><main class="wrap">
-<header><div class="logo">Creator<span>Kit.</span></div><div class="pill">✦ FREE CREATOR TOOLS</div></header>
-<section class="hero"><div class="eyebrow">YOUR NEXT VIDEO STARTS HERE</div><h1>Create content.<br><span>Grow smarter.</span></h1><p class="sub">Turn one video topic into title ideas, a description and hashtags. Simple tools for creators.</p></section>
-<section class="panel"><form id="creatorForm">
-<div class="field"><label for="topic">What's your video about?</label><textarea id="topic" maxlength="300" placeholder="Example: Amazing facts about space..." required></textarea></div>
-<div class="grid"><div class="field"><label for="platform">Platform</label><select id="platform"><option>YouTube Shorts</option><option>YouTube</option><option>Instagram Reels</option><option>Facebook Reels</option></select></div>
-<div class="field"><label for="style">Content style</label><select id="style"><option value="curiosity">Curiosity</option><option value="educational">Educational</option><option value="dramatic">Dramatic</option><option value="simple">Simple &amp; clear</option></select></div></div>
-<button class="primary" type="submit">✦ Generate my content kit</button><p class="hint">Free to use · No account required · Works in your browser</p>
-</form></section>
-<section class="panel" id="results" aria-live="polite"><div class="result-head"><h2>Your content kit</h2><button type="button" class="secondary" id="again">↻ Try again</button></div>
-<div class="result-card"><div class="result-top"><strong>VIDEO TITLE IDEAS</strong><button class="copy" data-target="titles">Copy</button></div><div class="output" id="titles"></div></div>
-<div class="result-card"><div class="result-top"><strong>VIDEO DESCRIPTION</strong><button class="copy" data-target="description">Copy</button></div><div class="output" id="description"></div></div>
-<div class="result-card"><div class="result-top"><strong>HASHTAGS</strong><button class="copy" data-target="hashtags">Copy</button></div><div class="output" id="hashtags"></div></div><p class="hint" id="notice"></p></section>
-<footer>CreatorKit · Built for creators<br>Suggestions are template-based, not AI-generated.</footer>
-</main><script>
+:root{color-scheme:dark;--bg:#090d18;--panel:#121a2b;--line:#293650;--text:#f4f6ff;--muted:#a8b3ca;--accent:#9b87ff;--green:#68e0b0}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse at top,#20234a 0,#090d18 58%);font-family:system-ui,-apple-system,sans-serif;color:var(--text);min-height:100vh;padding:24px 14px}
+main{max-width:760px;margin:auto}
+header{text-align:center;padding:20px 0 25px}
+.logo{display:inline-block;border:1px solid #514a85;background:#211e43;color:#c9c0ff;padding:7px 13px;border-radius:99px;font-size:12px;font-weight:700;letter-spacing:1px}
+h1{font-size:clamp(32px,8vw,48px);margin:14px 0 8px;letter-spacing:-1.5px}
+h1 span{color:var(--accent)}
+header p,.muted{color:var(--muted);line-height:1.6}
+.panel{background:#121a2beF;border:1px solid var(--line);border-radius:20px;padding:20px;margin:14px 0;box-shadow:0 15px 45px #0002}
+label{display:block;font-size:14px;font-weight:700;margin:0 0 9px}
+textarea,select{width:100%;background:#0b1120;color:var(--text);border:1px solid #34415c;border-radius:12px;padding:13px;font:inherit;outline:none}
+textarea:focus,select:focus{border-color:var(--accent)}
+textarea{min-height:100px;resize:vertical}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:17px}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:12px 15px;font-weight:750}
+.primary{width:100%;margin-top:18px;background:linear-gradient(100deg,#a994ff,#7e91ff);color:#101126;padding:15px}
+.secondary{background:#222d43;border:1px solid #35445f;color:#edf0ff;font-size:13px}
+.result{margin-top:16px;border-top:1px solid var(--line);padding-top:16px}
+.result:first-of-type{border-top:0}
+.result-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.result-head h3{margin:0;font-size:16px}
+.output{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7;color:#e5eaf8;font-size:14px}
+.note{font-size:12px;color:var(--muted);line-height:1.6}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:22px}
+@media(max-width:520px){.fields{grid-template-columns:1fr}.panel{padding:16px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="logo">CREATOR TOOLS</div>
+<h1>Creator<span>Kit</span></h1>
+<p>अपने वीडियो के लिए टाइटल, डिस्क्रिप्शन और हैशटैग तैयार करें।</p>
+</header>
+
+<section class="panel">
+<label for="topic">वीडियो किस विषय पर है?</label>
+<textarea id="topic" placeholder="जैसे: समुद्र की 5 रहस्यमयी बातें"></textarea>
+<div class="fields">
+<div>
+<label for="platform">प्लेटफ़ॉर्म</label>
+<select id="platform">
+<option>YouTube Shorts</option>
+<option>YouTube Video</option>
+<option>Instagram Reels</option>
+<option>Facebook Reels</option>
+</select>
+</div>
+<div>
+<label for="style">शीर्षक की शैली</label>
+<select id="style">
+<option value="curiosity">Curiosity — जिज्ञासा</option>
+<option value="educational">Educational — जानकारीपूर्ण</option>
+<option value="dramatic">Dramatic — नाटकीय</option>
+<option value="simple">Simple — सरल</option>
+</select>
+</div>
+</div>
+<button class="primary" id="generate">मेरा कंटेंट तैयार करें ✨</button>
+<p class="note">यह संस्करण बिना किसी बाहरी सेवा के चलता है। सुझाव टेम्पलेट से बनते हैं, वास्तविक एआई से नहीं। प्रकाशित करने से पहले परिणाम जाँच लें।</p>
+</section>
+
+<section class="panel" id="results" hidden>
+<div class="result">
+<div class="result-head"><h3>🎯 टाइटल के सुझाव</h3><button class="secondary" data-copy="titles">कॉपी</button></div>
+<div class="output" id="titles"></div>
+</div>
+<div class="result">
+<div class="result-head"><h3>📝 डिस्क्रिप्शन</h3><button class="secondary" data-copy="description">कॉपी</button></div>
+<div class="output" id="description"></div>
+</div>
+<div class="result">
+<div class="result-head"><h3># हैशटैग</h3><button class="secondary" data-copy="hashtags">कॉपी</button></div>
+<div class="output" id="hashtags"></div>
+</div>
+</section>
+<footer>CreatorKit · बनाया गया कंटेंट इस्तेमाल करने से पहले उसकी सटीकता जाँचें।</footer>
+</main>
+<script>
 const $=id=>document.getElementById(id);
-function cleanTopic(value){return value.trim().replace(/\s+/g," ").replace(/[.!?]+$/,"")}
+const hasHindi=s=>/[\u0900-\u097F]/u.test(s);
+function wordsOf(s){
+ return (s.toLocaleLowerCase("hi").match(/[\p{L}\p{M}\p{N}]+/gu)||[]);
+}
 function makeHashtags(topic,platform){
- const words=topic.toLowerCase().match(/[\p{L}\p{N}]+/gu)||[];
- const stop=new Set(["the","and","for","with","about","this","that","from","your","you","are","hai","he","ka","ki","ke","mein","par","aur","ek","kya","how","why"]);
- const tags=[...new Set(words.filter(w=>!stop.has(w)&&w.length>2))].slice(0,5).map(w=>"#"+w);
- const common=platform.includes("YouTube")?["#shorts","#youtube"]:platform.includes("Instagram")?["#reels","#instagram"]:["#reels","#creator"];
- return [...new Set([...tags,...common,"#contentcreator"])].join(" ");
+ const stop=new Set(["the","and","for","with","about","this","that","from","your","you","are","hai","he","ka","ki","ke","mein","par","aur","ek","kya","how","why","top","best"]);
+ const words=wordsOf(topic).filter(w=>!stop.has(w)&&w.length>1);
+ const clean=[];
+ if(words.length){
+   clean.push("#"+words.join(""));
+   words.slice(0,3).forEach(w=>clean.push("#"+w));
+ }
+ clean.push(platform==="YouTube Shorts"?"#Shorts":platform.includes("Reels")?"#Reels":"#YouTube");
+ return [...new Set(clean)].slice(0,6).join(" ");
 }
-function generate(){
- const topic=cleanTopic($("topic").value);if(!topic){$("topic").focus();return}
- const platform=$("platform").value,style=$("style").value;
- const templates={
- curiosity:[`You Won't Believe This About ${topic}`,`What Nobody Tells You About ${topic}`,`Did You Know This About ${topic}?`,`${topic}: The Surprising Truth`],
- educational:[`${topic} Explained Simply`,`Learn About ${topic} in 60 Seconds`,`3 Things to Understand About ${topic}`,`A Beginner's Guide to ${topic}`],
- dramatic:[`The Untold Story of ${topic}`,`This Changes How You See ${topic}`,`The Truth Behind ${topic}`,`${topic} Is More Interesting Than You Think`],
- simple:[`${topic} — Quick Guide`,`Let's Talk About ${topic}`,`${topic}: What You Need to Know`,`A Simple Explanation of ${topic}`]
+function makeTitles(topic,style){
+ const hi=hasHindi(topic);
+ const sets={
+ curiosity:hi?[
+ `${topic} के पीछे छिपे रहस्य!`,
+ `${topic} के बारे में ये बातें जानते हैं?`,
+ `${topic}: ऐसी बातें जो हैरान कर दें`,
+ `आखिर ${topic} इतना दिलचस्प क्यों है?`
+ ]:[
+ `The Mystery Behind ${topic}`,
+ `What Makes ${topic} So Surprising?`,
+ `Things You May Not Know About ${topic}`,
+ `The Most Interesting Part of ${topic}`
+ ],
+ educational:hi?[
+ `${topic} को आसान भाषा में समझें`,
+ `${topic} के 3 रोचक तथ्य`,
+ `${topic} के बारे में ज़रूरी जानकारी`,
+ `${topic}: आसान जानकारी`
+ ]:[
+ `${topic}, Explained Simply`,
+ `3 Interesting Facts About ${topic}`,
+ `What to Know About ${topic}`,
+ `${topic}: A Quick Guide`
+ ],
+ dramatic:hi?[
+ `${topic} की अनसुनी कहानी`,
+ `${topic} का चौंकाने वाला सच`,
+ `${topic} की सबसे हैरान करने वाली बात`,
+ `${topic}: पर्दे के पीछे की कहानी`
+ ]:[
+ `The Untold Story of ${topic}`,
+ `The Surprising Truth About ${topic}`,
+ `The Most Unexpected Thing About ${topic}`,
+ `What Lies Behind ${topic}`
+ ],
+ simple:hi?[
+ `${topic} — आसान जानकारी`,
+ `आइए जानें ${topic} के बारे में`,
+ `${topic} की मुख्य बातें`,
+ `${topic}: एक छोटा परिचय`
+ ]:[
+ `${topic} — Quick Guide`,
+ `Let's Explore ${topic}`,
+ `Key Things About ${topic}`,
+ `${topic}: A Short Introduction`
+ ]
  };
- $("titles").textContent=templates[style].map((t,i)=>`${i+1}. ${t}`).join("\n");
- $("description").textContent=`In this ${platform} video, we explore ${topic}.\n\nWatch until the end and share your thoughts in the comments!\n\nIf you found this useful, follow for more content.\n\nEdit this description so it accurately matches your video.`;
- $("hashtags").textContent=makeHashtags(topic,platform);
- $("notice").textContent="These are starter templates, not AI-generated recommendations. Customize them before publishing.";
- $("results").style.display="block";$("results").scrollIntoView({behavior:"smooth",block:"start"});
+ return sets[style].map((t,i)=>`${i+1}. ${t}`).join("\n");
 }
-$("creatorForm").addEventListener("submit",e=>{e.preventDefault();generate()});$("again").addEventListener("click",generate);
-document.querySelectorAll("[data-target]").forEach(button=>{button.addEventListener("click",async()=>{
- const text=$(button.dataset.target).textContent;
- try{await navigator.clipboard.writeText(text);button.textContent="Copied ✓"}
- catch(e){const area=document.createElement("textarea");area.value=text;document.body.appendChild(area);area.select();document.execCommand("copy");area.remove();button.textContent="Copied ✓"}
- setTimeout(()=>button.textContent="Copy",1400);
-})});
-</script></body></html>
+function makeDescription(topic,platform){
+ if(hasHindi(topic)){
+  return `इस ${platform} वीडियो में हम ${topic} के बारे में जानेंगे।\n\nवीडियो में दी गई जानकारी में से आपको कौन-सी बात सबसे दिलचस्प लगी? कमेंट में बताइए।\n\nऐसे और वीडियो के लिए फ़ॉलो करें।\n\nनोट: इस विवरण को अपने वीडियो की वास्तविक सामग्री के अनुसार जाँचें।`;
+ }
+ return `In this ${platform} video, we explore ${topic}.\n\nTell us which part you found most interesting in the comments.\n\nFollow for more videos.\n\nNote: Check that this description accurately matches your video's actual content.`;
+}
+$("generate").addEventListener("click",()=>{
+ const topic=$("topic").value.trim();
+ if(!topic){$("topic").focus();alert("पहले वीडियो का विषय लिखें।");return}
+ const platform=$("platform").value,style=$("style").value;
+ $("titles").textContent=makeTitles(topic,style);
+ $("description").textContent=makeDescription(topic,platform);
+ $("hashtags").textContent=makeHashtags(topic,platform);
+ $("results").hidden=false;
+ $("results").scrollIntoView({behavior:"smooth",block:"start"});
+});
+document.querySelectorAll("[data-copy]").forEach(button=>{
+ button.addEventListener("click",async()=>{
+  const text=$(button.dataset.copy).textContent;
+  try{
+   await navigator.clipboard.writeText(text);
+   button.textContent="कॉपी हो गया ✓";
+  }catch(e){
+   const area=document.createElement("textarea");
+   area.value=text;document.body.appendChild(area);area.select();
+   const ok=document.execCommand("copy");area.remove();
+   button.textContent=ok?"कॉपी हो गया ✓":"टेक्स्ट चुनकर कॉपी करें";
+  }
+  setTimeout(()=>button.textContent="कॉपी",1600);
+ });
+});
+</script>
+</body>
+</html>

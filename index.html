@@ -1,376 +1,476 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#090d18">
-<meta name="description" content="CreatorKit creates video hooks, titles, scripts, scene plans, descriptions and hashtags.">
+<meta name="description" content="CreatorKit creates video titles, hooks, scene plans, scripts, descriptions and hashtags.">
 <title>CreatorKit Studio</title>
 <style>
-:root{
-  color-scheme:dark;
-  --bg:#090d18;
-  --panel:#111827;
-  --inner:#0b1120;
-  --border:#29354b;
-  --text:#f1f5f9;
-  --muted:#9ba9bd;
-  --purple:#a99cff;
-  --mint:#57e4cd;
-}
+:root{color-scheme:dark;--bg:#090d18;--panel:#111827;--inner:#0b1120;--border:#29354b;--text:#f1f5f9;--muted:#9ba9bd;--purple:#a99cff;--mint:#57e4cd}
 *{box-sizing:border-box}
-body{
-  margin:0;
-  background:radial-gradient(ellipse at top,#202044 0%,var(--bg) 48%);
-  color:var(--text);
-  font-family:system-ui,-apple-system,sans-serif;
-}
+body{margin:0;background:radial-gradient(ellipse at top,#202044 0%,var(--bg) 48%);color:var(--text);font-family:system-ui,-apple-system,sans-serif}
 .container{width:min(900px,100%);margin:auto;padding:20px 13px 45px}
 header{text-align:center;padding:23px 4px 27px}
-.logo{
-  display:inline-block;border:1px solid var(--border);border-radius:30px;
-  padding:7px 13px;color:var(--mint);font-size:12px;
-  font-weight:800;letter-spacing:2px
-}
+.logo{display:inline-block;border:1px solid var(--border);border-radius:30px;padding:7px 13px;color:var(--mint);font-size:12px;font-weight:800;letter-spacing:2px}
 h1{font-size:clamp(34px,8vw,53px);line-height:1.08;letter-spacing:-1.5px;margin:18px 0 12px}
 h1 span{background:linear-gradient(90deg,var(--purple),var(--mint));color:transparent;background-clip:text}
 .subtitle{color:var(--muted);font-size:14px;line-height:1.7;max-width:570px;margin:auto}
-.panel{
-  background:rgba(17,24,39,.96);border:1px solid var(--border);
-  border-radius:19px;padding:18px;margin-bottom:17px
-}
+.panel{background:rgba(17,24,39,.96);border:1px solid var(--border);border-radius:19px;padding:18px;margin-bottom:17px}
 h2{font-size:19px;margin:0 0 18px}
 label{display:block;font-size:13px;font-weight:750;margin-bottom:8px}
 .field{margin-bottom:17px}
-input,select,textarea{
-  display:block;width:100%;background:var(--inner);color:var(--text);
-  border:1px solid var(--border);border-radius:11px;padding:13px;
-  font:inherit;font-size:14px;outline:none
-}
+input,select,textarea{display:block;width:100%;background:var(--inner);color:var(--text);border:1px solid var(--border);border-radius:11px;padding:13px;font:inherit;font-size:14px;outline:none}
 textarea{resize:vertical;min-height:100px;line-height:1.6}
 input:focus,select:focus,textarea:focus{border-color:var(--purple)}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-button{
-  font:inherit;cursor:pointer;border:0;border-radius:10px;
-  padding:11px 14px;font-weight:750
-}
-.primary{
-  width:100%;padding:15px;color:#0b1020;
-  background:linear-gradient(90deg,var(--purple),var(--mint));
-  font-size:15px
-}
+button{font:inherit;cursor:pointer;border:0;border-radius:10px;padding:11px 14px;font-weight:750}
+.primary{width:100%;padding:15px;color:#0b1020;background:linear-gradient(90deg,var(--purple),var(--mint));font-size:15px}
 .secondary{background:#202b40;border:1px solid #35435c;color:var(--text);font-size:12px}
 .result{background:var(--inner);border:1px solid var(--border);border-radius:13px;padding:14px;margin-top:12px}
 .result-head{display:flex;align-items:center;justify-content:space-between;gap:9px;margin-bottom:12px}
 .result-head h3{font-size:14px;margin:0}
 .output{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.8;font-size:14px;color:#dce5f3}
-.title-option,.scene{
-  border:1px solid #29354b;border-radius:10px;padding:12px;margin:8px 0;
-  font-size:14px;line-height:1.7;overflow-wrap:anywhere
-}
+.title-option,.scene{border:1px solid #29354b;border-radius:10px;padding:12px;margin:8px 0;font-size:14px;line-height:1.7;overflow-wrap:anywhere}
 .tag{font-size:11px;font-weight:800;color:var(--mint);margin-bottom:5px}
 .hidden{display:none!important}
 #status{min-height:22px;color:var(--mint);font-size:13px;text-align:center;margin-top:12px}
 .note{font-size:12px;line-height:1.7;color:var(--muted)}
 footer{text-align:center;color:var(--muted);font-size:12px;line-height:1.8;padding:15px 5px}
-@media(max-width:540px){
- .grid{grid-template-columns:1fr;gap:0}
- .panel{padding:14px}
- .container{padding-left:11px;padding-right:11px}
-}
+@media(max-width:540px){.grid{grid-template-columns:1fr;gap:0}.panel{padding:14px}.container{padding-left:11px;padding-right:11px}}
 </style>
 </head>
 <body>
 <main class="container">
 <header>
-  <div class="logo">CREATORKIT STUDIO</div>
-  <h1>Turn ideas into<br><span>video plans.</span></h1>
-  <p class="subtitle">Create video hooks, titles, scene plans, scripts, descriptions and hashtags from one topic.</p>
+<div class="logo">CREATORKIT STUDIO</div>
+<h1>Turn ideas into<br><span>video plans.</span></h1>
+<p class="subtitle">Create video titles, hooks, scene plans, scripts, descriptions and hashtags from one topic.</p>
 </header>
 
 <section class="panel">
-  <h2>✦ Create your video package</h2>
-  <form id="form">
-    <div class="field">
-      <label for="topic">Video topic / वीडियो का विषय</label>
-      <textarea id="topic" maxlength="250" required placeholder="Example: AI tools for students"></textarea>
-    </div>
-    <div class="grid">
-      <div class="field">
-        <label for="platform">Platform / मंच</label>
-        <select id="platform">
-          <option value="shorts">YouTube Shorts</option>
-          <option value="youtube">YouTube Video</option>
-          <option value="reels">Instagram Reels</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="language">Output language / भाषा</label>
-        <select id="language">
-          <option value="en">English</option>
-          <option value="hi">Hindi</option>
-          <option value="mix">Hindi + English</option>
-        </select>
-      </div>
-    </div>
-    <div class="grid">
-      <div class="field">
-        <label for="audience">Target audience / दर्शक</label>
-        <select id="audience">
-          <option value="students">Students</option>
-          <option value="beginners">Beginners</option>
-          <option value="creators">Content creators</option>
-          <option value="general">General audience</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="duration">Video duration / अवधि</label>
-        <select id="duration">
-          <option value="30">30 seconds</option>
-          <option value="45" selected>45 seconds</option>
-          <option value="60">60 seconds</option>
-        </select>
-      </div>
-    </div>
-    <button class="primary" id="generate" type="submit">✦ Generate Video Package</button>
-    <div id="status" role="status" aria-live="polite"></div>
-  </form>
+<h2>✦ Create your video package</h2>
+<form id="form">
+<div class="field">
+<label for="topic">Video topic / वीडियो का विषय</label>
+<textarea id="topic" maxlength="250" required placeholder="Example: AI tools for students"></textarea>
+</div>
+<div class="grid">
+<div class="field">
+<label for="platform">Platform / मंच</label>
+<select id="platform">
+<option value="shorts">YouTube Shorts</option>
+<option value="youtube">YouTube Video</option>
+<option value="reels">Instagram Reels</option>
+</select>
+</div>
+<div class="field">
+<label for="language">Output language / भाषा</label>
+<select id="language">
+<option value="en">English</option>
+<option value="hi">Hindi</option>
+<option value="mix">Hindi + English</option>
+</select>
+</div>
+</div>
+<div class="grid">
+<div class="field">
+<label for="audience">Target audience / दर्शक</label>
+<select id="audience">
+<option value="students">Students</option>
+<option value="beginners">Beginners</option>
+<option value="creators">Content creators</option>
+<option value="general">General audience</option>
+</select>
+</div>
+<div class="field">
+<label for="duration">Video duration / अवधि</label>
+<select id="duration">
+<option value="30">30 seconds</option>
+<option value="45" selected>45 seconds</option>
+<option value="60">60 seconds</option>
+</select>
+</div>
+</div>
+<button class="primary" id="generate" type="submit">✦ Generate Video Package</button>
+<div id="status" role="status" aria-live="polite"></div>
+</form>
 </section>
 
 <section id="results" class="panel hidden">
-  <h2>✦ Your video package</h2>
-  <p class="note">ये सुझाव दिए गए विषय और चुनी गई सेटिंग के आधार पर नियमों से तैयार होते हैं। तथ्यों को प्रकाशित करने से पहले जाँचें।</p>
+<h2>✦ Your video package</h2>
+<p class="note">This version uses improved topic-based templates, not a live AI model. Verify factual claims before publishing.</p>
 
-  <div class="result">
-    <div class="result-head"><h3>1. Video titles / शीर्षक</h3><button class="secondary" data-copy="titles">Copy</button></div>
-    <div id="titles"></div>
-  </div>
-  <div class="result">
-    <div class="result-head"><h3>2. Opening hook / शुरुआती पंक्ति</h3><button class="secondary" data-copy="hook">Copy</button></div>
-    <div class="output" id="hook"></div>
-  </div>
-  <div class="result">
-    <div class="result-head"><h3>3. Scene-by-scene plan / दृश्य योजना</h3><button class="secondary" data-copy="scenes">Copy</button></div>
-    <div id="scenes"></div>
-  </div>
-  <div class="result">
-    <div class="result-head"><h3>4. Voiceover script / बोलने की पटकथा</h3><button class="secondary" data-copy="script">Copy</button></div>
-    <div class="output" id="script"></div>
-  </div>
-  <div class="result">
-    <div class="result-head"><h3>5. Description / विवरण</h3><button class="secondary" data-copy="description">Copy</button></div>
-    <div class="output" id="description"></div>
-  </div>
-  <div class="result">
-    <div class="result-head"><h3>6. Hashtags / विषय टैग</h3><button class="secondary" data-copy="hashtags">Copy</button></div>
-    <div class="output" id="hashtags"></div>
-  </div>
-  <button class="primary" id="copyAll" style="margin-top:15px">Copy Full Package</button>
+<div class="result">
+<div class="result-head"><h3>1. Video titles / शीर्षक</h3><button class="secondary" data-copy="titles">Copy</button></div>
+<div id="titles"></div>
+</div>
+<div class="result">
+<div class="result-head"><h3>2. Opening hook / शुरुआती पंक्ति</h3><button class="secondary" data-copy="hook">Copy</button></div>
+<div class="output" id="hook"></div>
+</div>
+<div class="result">
+<div class="result-head"><h3>3. Scene-by-scene plan / दृश्य योजना</h3><button class="secondary" data-copy="scenes">Copy</button></div>
+<div id="scenes"></div>
+</div>
+<div class="result">
+<div class="result-head"><h3>4. Voiceover script / बोलने की पटकथा</h3><button class="secondary" data-copy="script">Copy</button></div>
+<div class="output" id="script"></div>
+</div>
+<div class="result">
+<div class="result-head"><h3>5. Description / विवरण</h3><button class="secondary" data-copy="description">Copy</button></div>
+<div class="output" id="description"></div>
+</div>
+<div class="result">
+<div class="result-head"><h3>6. Hashtags / विषय टैग</h3><button class="secondary" data-copy="hashtags">Copy</button></div>
+<div class="output" id="hashtags"></div>
+</div>
+<button class="primary" id="copyAll" style="margin-top:15px">Copy Full Package</button>
 </section>
 
-<footer>
-  CreatorKit Studio · Built for creators<br>
-  Version 2 · Template-based content generator, not a live AI model
-</footer>
+<footer>CreatorKit Studio · Built for creators<br>Version 3 · Improved topic-based templates · Not a live AI model</footer>
 </main>
 
 <script>
-const $ = id => document.getElementById(id);
+'use strict';
 
+const $ = id => document.getElementById(id);
 let currentPackage = null;
 
 function cleanTopic(value){
-  return value
-    .replace(/\s+/g," ")
-    .replace(/^[\s,.;:!?]+|[\s,.;:!?]+$/g,"")
-    .trim();
+  return value.replace(/\s+/g,' ').replace(/^[\s,.;:!?]+|[\s,.;:!?]+$/g,'').trim();
 }
 
 function topicWords(topic){
-  return topic.match(/[\p{L}\p{N}]+/gu) || [];
-}
-
-function isHindi(text){
-  return /[\u0900-\u097F]/.test(text);
+  return topic.match(/[\p{L}\p{N}]+/gu)||[];
 }
 
 function readableTopic(topic){
-  const value = topic.trim();
-  if(!value) return value;
-  return value.charAt(0).toLocaleUpperCase() + value.slice(1);
+  const v=topic.trim();
+  return v?v.charAt(0).toLocaleUpperCase()+v.slice(1):v;
 }
 
-function sentence(text){
-  return /[.!?।]$/.test(text) ? text : text + ".";
+function isStudentAI(topic){
+  return /\bai\b.*\btools?\b.*\bstudents?\b|\bstudents?\b.*\bai\b.*\btools?\b|artificial intelligence/i.test(topic);
 }
 
-function makeTitles(topic, lang){
-  const t = readableTopic(topic);
-  const hindi = lang === "hi";
-  const mixed = lang === "mix";
+function makeTitles(topic,lang){
+  const t=readableTopic(topic);
 
-  if(hindi){
+  if(isStudentAI(topic)){
+    if(lang==='hi') return [
+      'विद्यार्थियों के लिए 5 उपयोगी AI टूल्स',
+      'AI से पढ़ाई आसान कैसे बनाएँ?',
+      'AI से होमवर्क करते समय ये गलतियाँ न करें',
+      'AI टूल्स: पढ़ाई में फायदे और सीमाएँ'
+    ];
+
+    if(lang==='mix') return [
+      'Students के लिए 5 Useful AI Tools',
+      'AI से पढ़ाई Smart कैसे बनाएँ?',
+      'Students की 3 AI Mistakes',
+      'AI Tools: Benefits और Limitations'
+    ];
+
     return [
-      `${t} के बारे में 5 जरूरी बातें`,
-      `${t} को आसान भाषा में समझें`,
-      `${t} का सही इस्तेमाल कैसे करें?`,
-      `${t}: फायदे, सीमाएँ और जरूरी सुझाव`
+      '5 AI Tools That Can Help Students Study',
+      'How Students Can Use AI Without Copying Answers',
+      '3 AI Mistakes Students Should Avoid',
+      'AI for Students: Benefits and Limitations'
     ];
   }
 
-  if(mixed){
-    return [
-      `${t}: 5 बातें जो आपको जाननी चाहिए`,
-      `${t} को आसान तरीके से समझें`,
-      `How to Use ${t} Effectively`,
-      `${t}: Benefits, Limits and Smart Tips`
-    ];
-  }
+  if(lang==='hi') return [
+    `${t} के 5 जरूरी तथ्य`,
+    `${t} को उदाहरणों से समझें`,
+    `${t} इस्तेमाल करते समय ये गलतियाँ न करें`,
+    `${t}: फायदे और सीमाएँ`
+  ];
+
+  if(lang==='mix') return [
+    `${t}: 5 जरूरी बातें`,
+    `${t} को Examples के साथ समझें`,
+    `${t} इस्तेमाल करते समय ये Mistakes न करें`,
+    `${t}: Benefits और Limitations`
+  ];
 
   return [
-    `5 Things to Know About ${t}`,
-    `${t} Explained: A Beginner's Guide`,
-    `How to Use ${t} More Effectively`,
-    `${t}: Benefits, Limits and Smart Tips`
+    `5 Things You Should Know About ${t}`,
+    `${t} Explained With Practical Examples`,
+    `Common Mistakes to Avoid With ${t}`,
+    `${t}: Benefits, Risks and Limitations`
   ];
 }
 
-function makeHook(topic, lang){
-  const t = readableTopic(topic);
-
-  if(lang === "hi"){
-    return `क्या आप ${t} के बारे में ये जरूरी बातें जानते हैं? अगले कुछ सेकंड में जानिए इसका सही उपयोग, इसके फायदे और किन बातों का ध्यान रखना चाहिए।`;
+function makeHook(topic,lang){
+  if(isStudentAI(topic)){
+    if(lang==='hi') return 'AI से पढ़ाई में मदद मिल सकती है, लेकिन गलत जवाब भी मिल सकते हैं। जानिए इसे समझदारी से कैसे इस्तेमाल करें।';
+    if(lang==='mix') return 'AI आपकी पढ़ाई में help कर सकता है, लेकिन हर answer सही नहीं होता। इसे smart तरीके से use करना सीखो.';
+    return 'AI can help you study faster—but it can also give wrong answers. Here are three ways to use it wisely.';
   }
 
-  if(lang === "mix"){
-    return `${t} को इस्तेमाल करने से पहले ये बातें जान लो! इस वीडियो में हम इसके उपयोग, फायदे और जरूरी सावधानियों को आसान तरीके से समझेंगे।`;
-  }
+  const t=readableTopic(topic);
 
-  return `Want to understand ${t} better? In the next few seconds, discover practical ways to approach this topic, what to look out for, and how to get started.`;
+  if(lang==='hi') return `${t} की ये 3 जरूरी बातें जानिए, ताकि आप इसे बेहतर समझ सकें और आम गलतियों से बच सकें।`;
+  if(lang==='mix') return `${t} की 3 जरूरी बातें जानो और common mistakes से बचो।`;
+
+  return `Before you try ${t}, learn these three practical points and one common mistake to avoid.`;
 }
 
-function makeScenes(topic, lang, duration){
-  const t = readableTopic(topic);
-  const count = Number(duration);
-  const a = Math.round(count * 0.18);
-  const b = Math.round(count * 0.27);
-  const c = Math.round(count * 0.32);
-  const d = count - a - b - c;
+function makeScenes(topic,lang,duration){
+  const total=Number(duration);
+  const ends=[0,Math.round(total*.18),Math.round(total*.45),Math.round(total*.77),total];
+  let s;
 
-  if(lang === "hi"){
-    return [
-      {time:`0–${a}s`,label:"शुरुआत",visual:`${t} से जुड़ा सवाल स्क्रीन पर दिखाएँ।`,voice:`क्या आप ${t} के बारे में जरूरी बातें जानते हैं?`,overlay:"यह जानना जरूरी है"},
-      {time:`${a}–${a+b}s`,label:"मुख्य बात",visual:"विषय का साफ और सरल उदाहरण दिखाएँ।",voice:`सबसे पहले, ${t} क्या है और यह किस काम आ सकता है, इसे समझें।`,overlay:"बुनियादी जानकारी"},
-      {time:`${a+b}–${a+b+c}s`,label:"उपयोगी सुझाव",visual:"दो या तीन मुख्य बिंदु टेक्स्ट के रूप में दिखाएँ।",voice:"इसके उपयोग से पहले सही जानकारी जाँचें, फायदे समझें और इसकी सीमाओं को न भूलें।",overlay:"सही जानकारी • सही उपयोग"},
-      {time:`${count-d}–${count}s`,label:"समापन",visual:"मुख्य बात का सार और प्रश्न दिखाएँ।",voice:"आप इस विषय के बारे में क्या जानना चाहते हैं? कमेंट में बताएँ।",overlay:"अपना सवाल बताएँ"}
-    ];
+  if(isStudentAI(topic)){
+    if(lang==='hi'){
+      s=[
+        {
+          label:'समस्या',
+          visual:'किताब के सवाल पर रुके विद्यार्थी का दृश्य दिखाएँ; स्क्रीन पर “क्या AI का हर जवाब सही है?” लिखें।',
+          voice:'AI पढ़ाई में मदद कर सकता है, लेकिन हर जवाब सही नहीं होता।',
+          overlay:'हर जवाब सही नहीं!'
+        },
+        {
+          label:'व्यावहारिक उदाहरण',
+          visual:'एक सरल गणित सवाल दिखाएँ और AI से उसका चरण-दर-चरण हल समझने का उदाहरण दें।',
+          voice:'उत्तर कॉपी करने के बजाय AI से हर चरण और उसका कारण समझें।',
+          overlay:'उत्तर नहीं, तरीका समझें'
+        },
+        {
+          label:'जाँच और सुरक्षा',
+          visual:'उत्तर को पाठ्यपुस्तक या कक्षा के नोट्स से मिलाते हुए दिखाएँ।',
+          voice:'तथ्यों और गणनाओं को किताब से जाँचें। निजी जानकारी साझा न करें।',
+          overlay:'उत्तर जाँचें • निजी जानकारी बचाएँ'
+        },
+        {
+          label:'समापन',
+          visual:'तीन शब्द बड़े अक्षरों में दिखाएँ: समझें, जाँचें, अभ्यास करें।',
+          voice:'AI को पढ़ाई का सहायक बनाएँ, अपनी सोच का विकल्प नहीं।',
+          overlay:'समझें • जाँचें • अभ्यास करें'
+        }
+      ];
+    } else if(lang==='mix'){
+      s=[
+        {
+          label:'The problem',
+          visual:'Show a student stuck on a textbook question; display “Is every AI answer correct?”.',
+          voice:'AI पढ़ाई में help कर सकता है, लेकिन हर answer सही नहीं होता।',
+          overlay:'AI can be wrong'
+        },
+        {
+          label:'Practical example',
+          visual:'Show a sample maths question and an AI explanation broken into steps.',
+          voice:'Answer copy करने के बजाय AI से steps और reasoning समझो।',
+          overlay:'Understand, don’t copy'
+        },
+        {
+          label:'Verify and stay safe',
+          visual:'Compare the answer with a textbook or class notes.',
+          voice:'Facts check करो और private information share मत करो।',
+          overlay:'Verify every answer'
+        },
+        {
+          label:'Wrap-up',
+          visual:'Display: Understand, Verify, Practise.',
+          voice:'AI को study assistant बनाओ, अपनी thinking का replacement नहीं।',
+          overlay:'Understand • Verify • Practise'
+        }
+      ];
+    } else {
+      s=[
+        {
+          label:'The problem',
+          visual:'Show a student stuck on a textbook question; display “Can AI always be trusted?”.',
+          voice:'AI can help with studying, but it does not always give correct answers.',
+          overlay:'AI can be wrong'
+        },
+        {
+          label:'Practical example',
+          visual:'Show a sample maths question and an AI explanation broken into steps.',
+          voice:'Instead of copying the answer, ask AI to explain each step and why it works.',
+          overlay:'Understand, don’t copy'
+        },
+        {
+          label:'Verify the answer',
+          visual:'Compare the explanation with a textbook or class notes.',
+          voice:'Check facts and calculations against trusted learning materials. Never share private information.',
+          overlay:'Check • Verify • Protect privacy'
+        },
+        {
+          label:'Wrap-up',
+          visual:'Show three clear words on screen: Understand, Verify, Practise.',
+          voice:'Use AI as a study assistant, not a replacement for your own thinking.',
+          overlay:'Understand • Verify • Practise'
+        }
+      ];
+    }
+  } else {
+    const t=readableTopic(topic);
+
+    if(lang==='hi'){
+      s=[
+        {
+          label:'शुरुआत',
+          visual:`स्क्रीन पर सवाल दिखाएँ: “${t} क्यों जानना चाहिए?”`,
+          voice:makeHook(topic,lang),
+          overlay:'पहले यह जानें'
+        },
+        {
+          label:'उदाहरण',
+          visual:`${t} से जुड़ा एक वास्तविक, सरल उदाहरण दिखाएँ।`,
+          voice:`${t} को समझने के लिए इस आसान उदाहरण पर ध्यान दें।`,
+          overlay:'आसान उदाहरण'
+        },
+        {
+          label:'मुख्य बात',
+          visual:'दो उपयोगी बिंदु और एक सीमा स्क्रीन पर दिखाएँ।',
+          voice:'मुख्य जानकारी जाँचें और इसकी सीमाओं को समझें।',
+          overlay:'फायदे और सीमाएँ'
+        },
+        {
+          label:'समापन',
+          visual:'एक वाक्य में निष्कर्ष और दर्शकों के लिए सवाल दिखाएँ।',
+          voice:'आप इस विषय में आगे क्या जानना चाहते हैं? कमेंट में बताएँ।',
+          overlay:'अपना सवाल बताएँ'
+        }
+      ];
+    } else if(lang==='mix'){
+      s=[
+        {
+          label:'Hook / शुरुआत',
+          visual:`Show the question “Why should you care about ${t}?”`,
+          voice:makeHook(topic,lang),
+          overlay:'Know this first'
+        },
+        {
+          label:'Example / उदाहरण',
+          visual:`Show one clear, relevant example of ${t}.`,
+          voice:`एक simple example से ${t} को समझो।`,
+          overlay:'Simple example'
+        },
+        {
+          label:'Key point / मुख्य बात',
+          visual:'Display two useful points and one limitation.',
+          voice:'Important details verify करो और limitations भी समझो।',
+          overlay:'Benefits • Limits'
+        },
+        {
+          label:'Wrap-up / समापन',
+          visual:'Summarize the key takeaway and ask one audience question.',
+          voice:'इस topic पर अगला सवाल क्या है? Comments में बताओ।',
+          overlay:'Comment below'
+        }
+      ];
+    } else {
+      s=[
+        {
+          label:'Hook',
+          visual:`Open with the question: “Why should you care about ${t}?”`,
+          voice:makeHook(topic,lang),
+          overlay:'Know this first'
+        },
+        {
+          label:'Practical example',
+          visual:`Show one specific, easy-to-follow example of ${t}.`,
+          voice:`Here is a simple example that makes ${t} easier to understand.`,
+          overlay:'See it in action'
+        },
+        {
+          label:'Key point and limitation',
+          visual:'Display two practical points and one limitation; avoid unsupported claims.',
+          voice:'Check the important details, consider the limitations, and verify factual claims.',
+          overlay:'Benefits • Limits • Verify'
+        },
+        {
+          label:'Wrap-up',
+          visual:'Summarize the main takeaway and ask one focused audience question.',
+          voice:'What would you like to learn next about this topic? Share your question in the comments.',
+          overlay:'Comment below'
+        }
+      ];
+    }
   }
 
-  if(lang === "mix"){
-    return [
-      {time:`0–${a}s`,label:"Hook / शुरुआत",visual:`${t} से जुड़ा बड़ा सवाल स्क्रीन पर दिखाएँ।`,voice:`${t} को समझना चाहते हो? ये जरूरी बातें जान लो!`,overlay:"Watch till the end"},
-      {time:`${a}–${a+b}s`,label:"Explain / समझाएँ",visual:"विषय का एक आसान उदाहरण दिखाएँ।",voice:`सबसे पहले समझो कि ${t} क्या है और इसका उपयोग कहाँ हो सकता है।`,overlay:"Understand the basics"},
-      {time:`${a+b}–${a+b+c}s`,label:"Tips / सुझाव",visual:"दो या तीन मुख्य बिंदु स्क्रीन पर दिखाएँ।",voice:"सही जानकारी जाँचो, उपयोगी फायदे समझो और इसकी limitations यानी सीमाएँ भी याद रखो।",overlay:"Useful tips"},
-      {time:`${count-d}–${count}s`,label:"Ending / समापन",visual:"सारांश और दर्शकों के लिए सवाल दिखाएँ।",voice:"तुम्हें इस विषय में सबसे उपयोगी क्या लगा? कमेंट में बताओ।",overlay:"Comment below"}
-    ];
-  }
-
-  return [
-    {time:`0–${a}s`,label:"Hook",visual:`Show a bold question about ${t}.`,voice:`Want to understand ${t}? Here are the key points to know.`,overlay:"Watch till the end"},
-    {time:`${a}–${a+b}s`,label:"Explain the topic",visual:"Show a simple example or clear visual.",voice:`First, understand what ${t} means and where it may be useful.`,overlay:"Understand the basics"},
-    {time:`${a+b}–${a+b+c}s`,label:"Practical points",visual:"Show two or three key points as on-screen text.",voice:"Check reliable information, understand the possible benefits, and remember the limitations.",overlay:"Useful tips"},
-    {time:`${count-d}–${count}s`,label:"Wrap up",visual:"Summarize the main idea and show a question.",voice:"What would you like to learn next about this topic? Share your question in the comments.",overlay:"Comment below"}
-  ];
+  return s.map((x,i)=>({...x,time:`${ends[i]}–${ends[i+1]}s`}));
 }
 
 function makeScript(scenes){
-  return scenes.map((s,i)=>`SCENE ${i+1} (${s.time})\n${s.voice}`).join("\n\n");
+  return scenes.map((s,i)=>`SCENE ${i+1} (${s.time})\n${s.voice}`).join('\n\n');
 }
 
-function makeDescription(topic, lang, platform, audience){
-  const t = readableTopic(topic);
-  const audienceText = {
-    students:"students",
-    beginners:"beginners",
-    creators:"content creators",
-    general:"everyone interested in this topic"
-  }[audience];
+function makeDescription(topic,lang,platform,audience){
+  const isAI=isStudentAI(topic);
+  const audienceText={
+    students:'students',
+    beginners:'beginners',
+    creators:'content creators',
+    general:'everyone interested in this topic'
+  }[audience]||'viewers';
 
-  if(lang === "hi"){
-    return [
-      `इस वीडियो में हम ${t} को आसान भाषा में समझेंगे।`,
-      `यह वीडियो ${audienceText === "students" ? "विद्यार्थियों" : audienceText === "beginners" ? "शुरुआती लोगों" : audienceText === "content creators" ? "कंटेंट क्रिएटर्स" : "इस विषय में रुचि रखने वाले लोगों"} के लिए तैयार किया गया है।`,
-      "जानकारी को अपने संदर्भ में जाँचें और उपयोग करने से पहले विश्वसनीय स्रोत देखें।",
-      "आपका सवाल या सुझाव क्या है? कमेंट में बताएँ।"
-    ].join("\n\n");
+  if(isAI){
+    if(lang==='hi') return 'इस वीडियो में जानिए विद्यार्थी AI टूल्स का उपयोग पढ़ाई समझने, सवालों के चरण सीखने और अभ्यास करने के लिए कैसे कर सकते हैं।\n\nAI गलत उत्तर दे सकता है। जरूरी जानकारी किताब या विश्वसनीय स्रोत से जाँचें और निजी जानकारी साझा न करें।\n\nआप पढ़ाई के लिए AI का उपयोग किस काम में करना चाहेंगे? कमेंट में बताएँ।';
+
+    if(lang==='mix') return 'इस वीडियो में सीखें कि students AI tools से concepts समझने और practice करने में कैसे मदद ले सकते हैं।\n\nAI के answers हमेशा सही नहीं होते। Important facts verify करें और private information share न करें।\n\nआप AI को पढ़ाई में किस काम के लिए use करते हैं? Comment में बताएँ।';
+
+    return 'Learn how students can use AI tools to understand concepts, work through examples and practise independently.\n\nAI can make mistakes. Verify important facts using trusted learning materials and never share private information.\n\nHow would you use AI to support your studies? Share your thoughts in the comments.';
   }
 
-  if(lang === "mix"){
-    return [
-      `इस वीडियो में हम ${t} को आसान तरीके से समझेंगे।`,
-      `Useful for ${audienceText}, with key points and practical suggestions.`,
-      "किसी भी जरूरी तथ्य को इस्तेमाल करने से पहले reliable sources से verify करें।",
-      "आपकी राय क्या है? कमेंट में बताएँ।"
-    ].join("\n\n");
-  }
+  if(lang==='hi') return `इस वीडियो में ${topic} को उदाहरणों और उपयोगी बिंदुओं के साथ समझें。\n\nयह सामग्री ${audienceText==='students'?'विद्यार्थियों':audienceText==='beginners'?'शुरुआती लोगों':audienceText==='creators'?'कंटेंट क्रिएटर्स':'इस विषय में रुचि रखने वाले दर्शकों'} के लिए है। जरूरी तथ्यों को विश्वसनीय स्रोतों से जाँचें।\n\nआपका सवाल क्या है? कमेंट में बताएँ।`;
 
-  return [
-    `In this video, we explore ${t} in a clear and beginner-friendly way.`,
-    `Made for ${audienceText}, with key ideas and practical suggestions.`,
-    "Always verify important facts using reliable sources before applying them.",
-    "What would you like to know next? Share your question in the comments."
-  ].join("\n\n");
+  if(lang==='mix') return `${topic} को practical examples और key points के साथ समझें।\n\nयह वीडियो ${audienceText} के लिए बनाया गया है। Important information को reliable sources से verify करें।\n\nअपना सवाल comments में बताएँ।`;
+
+  return `Explore ${topic} through practical examples and key takeaways.\n\nMade for ${audienceText}. Verify important claims using reliable sources.\n\nWhat should we cover next? Share your question in the comments.`;
 }
 
-function makeHashtags(topic, platform){
-  const words = topicWords(topic);
-  const stop = new Set([
-    "the","and","for","with","from","about","this","that","your","you",
-    "are","how","what","why","into","using","use","video","best","new",
-    "के","की","का","और","में","है","से","को","लिए","एक","यह","कैसे","क्या","पर"
+function makeHashtags(topic,platform){
+  const lang=$('language').value;
+  const platformTag={
+    shorts:'#YouTubeShorts',
+    youtube:'#YouTube',
+    reels:'#InstagramReels'
+  }[platform]||'#Video';
+
+  if(isStudentAI(topic)){
+    const tags=lang==='hi'
+      ? ['#AIपढ़ाई','#विद्यार्थी','#पढ़ाई','#AIटूल्स']
+      : ['#AITools','#Students','#StudyTips','#AIForStudents'];
+
+    tags.push(platformTag,'#LearnWithAI');
+    return [...new Set(tags)].slice(0,6).join(' ');
+  }
+
+  const stop=new Set([
+    'the','and','for','with','from','about','this','that','your','you',
+    'are','how','what','why','into','using','use','video','best','new',
+    'के','की','का','और','में','है','से','को','लिए','एक','यह','कैसे','क्या','पर'
   ]);
 
-  const tags = [];
-  const whole = words.join("");
-  if(whole) tags.push("#" + whole);
+  const words=topicWords(topic);
+  const tags=[];
+  const whole=words.join('');
 
-  for(const word of words){
-    const normalized = word.toLowerCase();
-    if(word.length < 3 || stop.has(normalized)) continue;
-    const tag = "#" + normalized;
-    if(!tags.some(x => x.toLowerCase() === tag.toLowerCase())) tags.push(tag);
+  if(whole) tags.push('#'+whole);
+
+  for(const w of words){
+    const n=w.toLowerCase();
+    if(w.length<3||stop.has(n)) continue;
+
+    const tag='#'+n;
+    if(!tags.some(x=>x.toLowerCase()===tag.toLowerCase())) tags.push(tag);
   }
 
-  const platformTag = {
-    shorts:"#YouTubeShorts",
-    youtube:"#YouTube",
-    reels:"#InstagramReels"
-  }[platform];
-
-  tags.push(platformTag);
-
-  const useful = {
-    en:["#LearnSomethingNew","#Explained"],
-    hi:["#सीखें","#जानकारी"],
-    mix:["#Learning","#UsefulTips"]
-  }[$("language").value];
-
-  for(const tag of useful){
-    if(tags.length < 6) tags.push(tag);
-  }
-
-  return [...new Set(tags)].slice(0,6).join(" ");
+  tags.push(platformTag,lang==='hi'?'#सीखें':'#UsefulTips');
+  return [...new Set(tags)].slice(0,6).join(' ');
 }
 
 function buildPackage(){
-  const topic = cleanTopic($("topic").value);
-  const lang = $("language").value;
-  const platform = $("platform").value;
-  const duration = $("duration").value;
-  const audience = $("audience").value;
-
-  const scenes = makeScenes(topic, lang, duration);
+  const topic=cleanTopic($('topic').value);
+  const lang=$('language').value;
+  const platform=$('platform').value;
+  const duration=$('duration').value;
+  const audience=$('audience').value;
+  const scenes=makeScenes(topic,lang,duration);
 
   return {
     topic,
@@ -384,130 +484,21 @@ function buildPackage(){
 }
 
 function render(data){
-  $("titles").replaceChildren();
+  $('titles').replaceChildren();
 
   data.titles.forEach((title,i)=>{
-    const card = document.createElement("div");
-    card.className = "title-option";
+    const card=document.createElement('div');
+    card.className='title-option';
 
-    const label = document.createElement("div");
-    label.className = "tag";
-    label.textContent = `TITLE ${i+1}`;
+    const tag=document.createElement('div');
+    tag.className='tag';
+    tag.textContent=`TITLE ${i+1}`;
 
-    const text = document.createElement("div");
-    text.textContent = title;
+    const text=document.createElement('div');
+    text.textContent=title;
 
-    card.append(label,text);
-    $("titles").append(card);
+    card.append(tag,text);
+    $('titles').append(card);
   });
 
-  $("hook").textContent = data.hook;
-  $("script").textContent = data.script;
-  $("description").textContent = data.description;
-  $("hashtags").textContent = data.hashtags;
-
-  $("scenes").replaceChildren();
-  data.scenes.forEach((scene,i)=>{
-    const card = document.createElement("div");
-    card.className = "scene";
-
-    const tag = document.createElement("div");
-    tag.className = "tag";
-    tag.textContent = `SCENE ${i+1} · ${scene.time}`;
-
-    const title = document.createElement("strong");
-    title.textContent = scene.label;
-
-    const details = document.createElement("div");
-    details.style.marginTop = "7px";
-    details.textContent = `Visual: ${scene.visual}\nVoice: ${scene.voice}\nOn-screen text: ${scene.overlay}`;
-
-    card.append(tag,title,details);
-    $("scenes").append(card);
-  });
-
-  $("results").classList.remove("hidden");
-  $("status").textContent = "Package created. Review facts before publishing.";
-}
-
-function fullText(data){
-  return [
-    "VIDEO TITLES",
-    ...data.titles.map((t,i)=>`${i+1}. ${t}`),
-    "\nOPENING HOOK",
-    data.hook,
-    "\nSCENE PLAN",
-    data.scenes.map((s,i)=>`Scene ${i+1} (${s.time})\n${s.label}\nVisual: ${s.visual}\nVoice: ${s.voice}\nText: ${s.overlay}`).join("\n\n"),
-    "\nVOICEOVER SCRIPT",
-    data.script,
-    "\nDESCRIPTION",
-    data.description,
-    "\nHASHTAGS",
-    data.hashtags
-  ].join("\n");
-}
-
-async function copyText(text){
-  try{
-    if(navigator.clipboard && window.isSecureContext){
-      await navigator.clipboard.writeText(text);
-      return true;
-    }
-  }catch(e){}
-
-  const box = document.createElement("textarea");
-  box.value = text;
-  box.style.position = "fixed";
-  box.style.opacity = "0";
-  document.body.append(box);
-  box.select();
-
-  let ok = false;
-  try{ok = document.execCommand("copy")}catch(e){}
-  box.remove();
-  return ok;
-}
-
-$("form").addEventListener("submit",event=>{
-  event.preventDefault();
-  const topic = cleanTopic($("topic").value);
-
-  if(!topic){
-    $("status").textContent = "Please enter a topic first.";
-    $("topic").focus();
-    return;
-  }
-
-  $("topic").value = topic;
-  currentPackage = buildPackage();
-  render(currentPackage);
-});
-
-document.querySelectorAll("[data-copy]").forEach(button=>{
-  button.addEventListener("click",async()=>{
-    if(!currentPackage) return;
-
-    const key = button.dataset.copy;
-    let text = "";
-
-    if(key === "titles"){
-      text = currentPackage.titles.map((t,i)=>`${i+1}. ${t}`).join("\n");
-    }else if(key === "scenes"){
-      text = currentPackage.scenes.map((s,i)=>`Scene ${i+1} (${s.time})\n${s.label}\nVisual: ${s.visual}\nVoice: ${s.voice}\nText: ${s.overlay}`).join("\n\n");
-    }else{
-      text = currentPackage[key];
-    }
-
-    const ok = await copyText(text);
-    $("status").textContent = ok ? "Copied successfully." : "Copy failed. Select the text and copy it manually.";
-  });
-});
-
-$("copyAll").addEventListener("click",async()=>{
-  if(!currentPackage) return;
-  const ok = await copyText(fullText(currentPackage));
-  $("status").textContent = ok ? "Full package copied." : "Copy failed. Copy each section separately.";
-});
-</script>
-</body>
-</html>
+  $('hook').textCo
